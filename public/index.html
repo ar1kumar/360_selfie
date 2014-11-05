@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='keywords' content='Sam Dutton, HTML5, JavaScript' />
+<meta name='description' content='Simplest possible examples of HTML, CSS and JavaScript.' />
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1'>
+<meta http-equiv='X-UA-Compatible' content='chrome=1' />
+<base target='_blank'>
+<title>360 selfie</title>
+<script src="js/jquery.js"></script>
+<link rel='stylesheet' href='../../css/main.css' />
+
+	<style>
+  div.select {
+    margin: 0 0 1em 0;
+  }
+  label {
+    color: white;
+  }
+  </style>
+
+</head>
+<body>
+<div id='container'>
+
+  <div class='select'>
+    <label for='audioSource'>Audio source: </label><select id='audioSource'></select>
+  </div>
+
+  <div class='select'>
+    <label for='videoSource'>Video source: </label><select id='videoSource'></select>
+  </div>
+
+  <video muted autoplay></video>
+
+  <script src='js/script.js'></script>
+  <script src="/socket.io/socket.io.js"></script>
+</div>
+	<div id="log"></div>
+	<h1><a href="#" id="mobileURL"></a></h1>
+	
+
+	<script>
+function randomString(len) {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    var string_length = len;
+    var randomstring = '';
+    for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum, rnum + 1);
+    }
+    return randomstring;
+}
+
+function log(data) {
+    $('#log').append('<br />' + data);
+}
+
+function execute_action(data) {
+	log('action received: '+data);
+	alert('starts');
+}
+
+window.onload = function() {
+
+	var baseURL = "http://192.168.1.164/"
+	var roomURL = baseURL+"mobile/"+roomId;	
+	var socket = io.connect(baseURL);
+	var roomId = randomString(4);
+	
+	
+	//start a room
+	//generate url for mobile to join room
+	//restrict room for two clients
+	//listen for incoming actions
+	
+	
+	//room created
+	socket.emit('new_room', roomId);
+
+
+	//url for mobile generated
+	$('#mobileURL').attr('href', baseURL+'mobile/'+roomId).text(baseURL+'mobile/'+roomId);
+	log(roomId);
+	
+	//listening for incoming actions.
+	socket.on('action', function(data){
+		execute_action(data);
+		console.log('works');
+	});
+
+	// logging to check if data is reaching client
+	socket.on('log', function(data){
+		log(data);
+		console.log(data+'received data');
+	});
+	
+}
+
+$(document).ready(function(){
+
+});
+		
+
+	</script>
+
+</body>
+</html>

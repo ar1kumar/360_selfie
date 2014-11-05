@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	
+	
+	<script>
+		$(document).ready(function(){
+		
+			var count = 0;
+			var baseURL = "http://localhost/"
+			var socket = io.connect(baseURL);
+			
+			socket.on('fire', function(data){
+				$('#log').append("<br />"+data);
+			})
+
+			$('#one').click(function(){
+				count++;
+				socket.emit('action', count);
+			});
+		})
+		
+		
+	</script>
+</head>
+<body>
+	
+	<button id="one">click me</button>
+	<div id="log"></div>
+</body>
+</html>
