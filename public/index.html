@@ -38,23 +38,12 @@
 </div>
 	
 	
-
-<script>
-function execute_action(data) {
-	//do something
-}
-
-
-	var socket = io.connect('http://192.168.1.150');
-	
-	//listening for incoming actions.
-	socket.on('cheese', function(data){
-		execute_action(data);
-		alert('cheese');
-	});
-
+	<script>
+		var socket = io.connect('http://192.168.1.150');
 		
-
+		socket.on('click', function(data){
+			alert('clicked');
+		})
 	</script>
 
 </body>

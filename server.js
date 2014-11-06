@@ -37,6 +37,6 @@ io.sockets.on('connection', function (socket) {
 	console.log('starts');
 	socket.on('cheese', function(data){
 		console.log('clicked');
-		socket.emit('cheese', "server received: "+data);
+		io.sockets.emit('click',data);
 	})
 });
