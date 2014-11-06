@@ -5,6 +5,11 @@
 	<title>Document</title>
 	<script src="js/jquery.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<style>
+	body img {
+		width: 100px;
+	}
+	</style>
 </head>
 <body>
 	
@@ -23,7 +28,12 @@
 		});
 		
 		socket.on('click', function(data){
-			console.log('data');
+		    var img = new Image;
+
+		    img.src = data.src; 
+		
+		    $('body').append(img);
+			
 		})
 	
 	</script>	
