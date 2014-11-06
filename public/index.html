@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name='keywords' content='Sam Dutton, HTML5, JavaScript' />
-<meta name='description' content='Simplest possible examples of HTML, CSS and JavaScript.' />
-<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1'>
 <meta http-equiv='X-UA-Compatible' content='chrome=1' />
 <base target='_blank'>
 <title>360 selfie</title>
 <script src="js/jquery.js"></script>
-<link rel='stylesheet' href='../../css/main.css' />
 
 	<style>
   div.select {
@@ -17,6 +13,13 @@
   label {
     color: white;
   }
+  #snap {
+	  display: none;
+  }
+  button {
+	  height: 50px;
+	  width: 200px;
+  }
   </style>
 
 </head>
@@ -24,14 +27,14 @@
 <div id='container'>
 
   <div class='select'>
-    <label for='audioSource'>Audio source: </label><select id='audioSource'></select>
-  </div>
-
-  <div class='select'>
     <label for='videoSource'>Video source: </label><select id='videoSource'></select>
   </div>
 
   <video muted autoplay></video>
+  <br />
+  <button id="capture" onclick="capture()">Capture</button>
+  
+  <canvas id="snap" width="480px" height="640px"></canvas>
 
   <script src='js/script.js'></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -39,11 +42,17 @@
 	
 	
 	<script>
-		var socket = io.connect('http://192.168.1.150');
+		var socket = io.connect('http://192.168.1.160');
+				
+		function capture(){
+		    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+			var src = canvas.toDataURL();
+		     var data = {src: src}; 
+			 
+			 socket.emit('capture', data);
+	
+		}
 		
-		socket.on('click', function(data){
-			alert('clicked');
-		})
 	</script>
 
 </body>

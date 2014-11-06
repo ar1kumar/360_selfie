@@ -1,6 +1,8 @@
 var videoElement = document.querySelector("video");
 var videoSelect = document.querySelector("select#videoSource");
 var startButton = document.querySelector("button#start");
+var canvas = document.querySelector('canvas'),
+	context = canvas.getContext('2d');
 
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -26,10 +28,15 @@ if (typeof MediaStreamTrack === 'undefined'){
 }
 
 
+
 function successCallback(stream) {
   window.stream = stream; // make stream available to console
   videoElement.src = window.URL.createObjectURL(stream);
   videoElement.play();  
+  // height = $('video').css('height');
+  // width = $('video').css('width');
+  // alert('height:'+height+", width:"+width);
+  // $('canvas').css({height: height, width: width});
 }
 
 function errorCallback(error){

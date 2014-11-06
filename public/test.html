@@ -13,7 +13,7 @@
 	<h1><a href="#" id="mobileURL"></a></h1>
 	
 	<script>
-		var socket = io.connect('http://192.168.1.150');
+		var socket = io.connect('http://192.168.1.160');
 		/* var socket = io.connect('http://localhost:8080');		 */
 		$('#one').click(function(){
 			console.log('clicked');
@@ -21,6 +21,10 @@
 				
 			});	
 		});
+		
+		socket.on('click', function(data){
+			console.log('data');
+		})
 	
 	</script>	
 

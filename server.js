@@ -35,8 +35,13 @@ app.configure('production', function(){
 //Socket functions starts//
 io.sockets.on('connection', function (socket) {
 	console.log('starts');
-	socket.on('cheese', function(data){
-		console.log('clicked');
-		io.sockets.emit('click',data);
+	// socket.on('cheese', function(data){
+	// 	console.log('clicked');
+	// 	io.sockets.emit('click',data);
+	// })
+	
+	socket.on('capture', function(data){
+		console.log('sent ;)');
+		io.sockets.emit('click', data);
 	})
 });
