@@ -34,7 +34,9 @@ app.configure('production', function(){
 
 //Socket functions starts//
 io.sockets.on('connection', function (socket) {
-	socket.on('action', function(data){
-		socket.emit('fire', "server received: "+data);
+	console.log('starts');
+	socket.on('cheese', function(data){
+		console.log('clicked');
+		socket.emit('cheese', "server received: "+data);
 	})
 });
