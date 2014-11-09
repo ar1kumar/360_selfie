@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Stop Motion Cam</title>
+	<script src="js/jquery.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<style>
+	body img {
+		width: 100px;
+	}
+	</style>
+</head>
+<body>
+	<form method="post" action="http://localhost:8888/stop_mo/gif/index.php">
+		<button id="one" type="submit">Generate Gif!</button>
+	</form>
+	
+	
+	<script>
+		var inputCount = 0;
+		var socket = io.connect('http://192.168.1.234');
+		/* var socket = io.connect('http://localhost:8080');		 */
+		$('#one').click(function(){
+			console.log('clicked');
+			socket.emit('cheese',function(data){
+				
+			});	
+		});
+		
+		socket.on('click', function(data){
+			inputCount++;
+		    var img = new Image;
+
+		    img.src = data.src; 
+			var input = document.createElement("INPUT");
+			input.setAttribute("type", "hidden");
+			input.setAttribute("value", data.src);
+			input.setAttribute("name", "image"+inputCount);
+		    $('body').append(img);
+			$('form').append(input)
+			
+		});
+	
+	</script>	
+
+</body>
+</html>
